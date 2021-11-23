@@ -8,6 +8,9 @@ This is a tool for a better self-service password change
 ## Requirements
 You need a webserver in your domain with PHP7 and actiavted LDAP extension.
 
+## Install
+Put everything from 'source' on your webserver.
+
 ## Config
 For configuration, all you have to do is change the variables in config.php.
 
