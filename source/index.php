@@ -21,6 +21,9 @@ include('config.php');
 	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
 	<link rel="stylesheet" type="text/css" href="css/util.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
+
+   
+
 </head>
 
 <body>
@@ -32,39 +35,39 @@ include('config.php');
 				<img src="./images/logo.png"></img>
             </div>
                 <!--Beginning of form-->
-				<form class="login100-form validate-form" method="POST">
+				<form class="login100-form validate-form" id="form01" method="POST">
                 
 					<span class="login100-form-title p-b-49 p-t-25">
 					<?php echo $header; ?>
 					</span>
                     <!--Field for email address (username+domain) -->
-					<div class="wrap-input100 validate-input m-b-5" data-validate = "<?php echo $msg_fieldreq; ?>">
-						<span class="label-input100"><?php echo $f_email; ?></span>
-						<input class="input100" type="text" name="username" id="username" placeholder="<?php echo $p_email; ?>">
+					<div class="wrap-input100 validate-input m-b-5" data-validate = "Eingabe erforderlich">
+						<span class="label-input100">Email-Adresse:</span>
+						<input class="input100" type="text" name="username" id="username" placeholder="Tippen Sie Ihre Email-Adresse ein">
 						<span class="focus-input100" data-symbol="&#xf206;"></span>
 					</div>
 					</br>
 
                     <!--Field for actual password-->
-					<div class="wrap-input100 validate-input m-b-5" data-validate="<?php echo $msg_fieldreq; ?>">
-						<span class="label-input100"><?php echo $f_acpw; ?></span>
-						<input class="input100" type="password" name="passold" id="passold" placeholder="<?php echo $p_acpw; ?>">
+					<div class="wrap-input100 validate-input m-b-5" data-validate="altes Passwort erforderlich">
+						<span class="label-input100">aktuelles Passwort:</span>
+						<input class="input100" type="password" name="passold" id="passold" placeholder="Tippen Sie Ihr altes Passwort ein">
 						<span class="focus-input100" data-symbol="&#xf190;"></span>
 					</div>
                     </br>
 
                     <!--Field for new password-->
-                    <div class="wrap-input100 validate-input" data-validate="<?php echo $msg_fieldreq; ?>">
-						<span class="label-input100"><?php echo $f_newpw; ?></span>
-						<input class="input100" type="password" name="passnew" id="passnew" placeholder="<?php echo $p_newpw; ?>">
+                    <div class="wrap-input100 validate-input" data-validate="Eingabe erforderlich">
+						<span class="label-input100">neues Passwort:</span>
+						<input class="input100" type="password" name="passnew" id="passnew" placeholder="Tippen Sie Ihr neues Passwort ein">
 						<span class="focus-input100" data-symbol="&#xf190;"></span>
 					</div>
                     </br>
 
                     <!--Field for new password confirmation -->
-                    <div class="wrap-input100 validate-input" data-validate="<?php echo $msg_fieldreq; ?>">
-						<span class="label-input100"><?php echo $f_newpwconf; ?></span>
-						<input class="input100" type="password" name="passnew2" id="passnew2" placeholder="<?php echo $p_newpwconf; ?>">
+                    <div class="wrap-input100 validate-input" data-validate="Eingabe erforderlich">
+						<span class="label-input100">neues Passwort wiederholen:</span>
+						<input class="input100" type="password" name="passnew2" id="passnew2" placeholder="Tippen Sie Ihr neues Passwort erneut ein">
 						<span class="focus-input100" data-symbol="&#xf190;"></span>
 					</div>
 
@@ -75,7 +78,7 @@ include('config.php');
  
                         function validatePassword(){
                         if(password.value != confirm_password.value) {
-							confirm_password.setCustomValidity("<?php echo $msg_pwconfnv; ?>");
+							confirm_password.setCustomValidity("Eingaben nicht identisch!");
                             } else {
                         confirm_password.setCustomValidity('');
                             }
@@ -121,7 +124,7 @@ include('config.php');
 								if (!preg_match('^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$^', $passnew))
 								{
 								echo '<script language="javascript">';
-								echo 'alert("'.$msg_pwreq.'")';
+								echo 'alert("Passwort erfüllt nicht die Anforderungen (mind. 8 Zeichen, Groß-/Kleinschreibung, mind. 1 Sonderzeichen od. Ziffer).")';
 								echo '</script>';
 								}
 									else
@@ -182,22 +185,27 @@ include('config.php');
 						?>
 
 					<div class="container-login100-form-btn" >
-
-					<!-- Show output message -->
-					<?php echo @$msgonsubmit; ?>
 					
+					<!-- Show output message -->
+					
+					<div id="statusmessage" >
+						<?php echo @$msgonsubmit; ?>
+					</div>
+
 						<!--Submit Button-->
 						<div class="wrap-login100-form-btn">
 							<div class="login100-form-bgbtn"></div>
-                            <input type="submit" class="wrap-login100-form-btn" id="btnSubmit" name="btnSubmit" value="<?php echo $b_submit; ?>">
-						</div>
+                            <button type="submit" class="wrap-login100-form-btn" id="btnSubmit" name="btnSubmit" value="Passwort ändern">Passwort ändern</button>
+						</div>	
+						
 					</div>
+					</form>
 					<!-- Footer -->
                     <p class="footer">
                     </br></br>
                     BetterSSPC v1.1 <?php echo $footermsg; ?>
                     </p>
-				</form>
+				
 			</div>
 		</div>
 	</div>
@@ -205,6 +213,29 @@ include('config.php');
 	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
 	<script src="vendor/animsition/js/animsition.min.js"></script>
 	<script src="js/main.js"></script>
+
+	
+	<script>
+
+$(document).ready(function() {
+    $("body").prepend('<div id="lock-modal" class="ui-widget-overlay" style="z-index: 1001; display: none;"></div>');
+    $("body").prepend("<div id='loading-circle' style='display: none;'></div>");
+});
+
+$('#form01').submit(function() {
+    var pass = true;
+    //some validations
+
+    if(pass == false){
+        return false;
+    }
+    $("#lock-modal, #loading-circle").show();
+
+    return true;
+});
+
+	</script>
+
 
 </body>
 
