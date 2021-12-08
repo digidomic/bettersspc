@@ -78,4 +78,7 @@ $msg_emailnotvalid = 'Not a valid e-mail address.';
 // Errors
 $msg_error = 'Error! E-mail address not found';
 
+// Footer
+$footermsg = '<a href="https://github.com/digidomic">GitHub</a>'
+
 ?>

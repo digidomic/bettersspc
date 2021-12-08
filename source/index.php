@@ -195,7 +195,7 @@ include('config.php');
 					<!-- Footer -->
                     <p class="footer">
                     </br></br>
-                    BetterSSPC v1.0 <a href="https://github.com/digidomic">GitHub</a>
+                    BetterSSPC v1.1 <?php echo $footermsg; ?>
                     </p>
 				</form>
 			</div>

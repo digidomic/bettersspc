@@ -22,3 +22,9 @@ GNU General Public License v3
 You can change the source code and use this software for commercial usage.
 
 You are not allowed to make profit with this software.
+
+---
+## Changelog
+
+### v1.1 (08.12.2021)
+- Loading Animation added during processing the password change
